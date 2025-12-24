@@ -79,20 +79,35 @@ In Home Assistant:
 
 ---
 
-### 3️⃣ Use it in your dashboard / sidebar
+### 3️⃣ Use it in `sidebar-card` (bottomCard)
 
-```yaml
-type: custom:now-playing-sidebar-card
-entity: media_player.preferred_now_playing
-```
+`sidebar-card` expects the card configuration under `cardOptions`.
 
-Designed to be dropped directly into:
+Example:
 
 ```yaml
 bottomCard:
   type: custom:now-playing-sidebar-card
-  entity: media_player.preferred_now_playing
+  cardStyle: |
+    :host {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+  cardOptions:
+    entity: media_player.preferred_now_playing
+    width: 150
+    art_width: 150
+    art_height: 215
+    hide_youtube_cast_art: true
 ```
+
+> Notes:
+> - `width` controls the card’s internal column width.
+> - `art_width` / `art_height` control the artwork box.
+> - This card renders nothing when the player is `idle`, `off`, or `unavailable`, so you don’t need a `conditional` wrapper.
+
 
 ---
 
