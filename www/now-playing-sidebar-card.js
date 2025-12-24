@@ -27,6 +27,7 @@ class NowPlayingSidebarCard extends LitElementBase {
     return css`
       :host {
         display: block;
+        width: 100%;
       }
 
       ha-card {
@@ -37,6 +38,7 @@ class NowPlayingSidebarCard extends LitElementBase {
         margin: 0;
         display: flex;
         justify-content: center;
+        width: 100%;
 
         /* FORCE WHITE FOREGROUND FOR THIS CARD ONLY */
         color: #ffffff !important;
@@ -58,6 +60,7 @@ class NowPlayingSidebarCard extends LitElementBase {
         flex-direction: column;
         align-items: center;
         gap: 6px;
+        margin: 0 auto;
       }
 
       /* artwork */
