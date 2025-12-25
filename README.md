@@ -63,7 +63,20 @@ Place `now-playing-sidebar-card.js` in:
 
 ---
 
-### 2️⃣ Add as a Lovelace resource
+### 2️⃣ Install via HACS
+
+In **HACS → Frontend**, add this repository as a **custom repository** (category: **Lovelace**) if it isn’t in the default store.  
+Then install **Now Playing Sidebar Card**.
+
+After installing, confirm HACS added the resource as a JavaScript module:
+
+```
+/hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
+```
+
+---
+
+### 3️⃣ Add as a Lovelace resource
 
 In Home Assistant:
 
@@ -73,13 +86,17 @@ In Home Assistant:
   ```
   /local/now-playing-sidebar-card.js
   ```
+  or (HACS)
+  ```
+  /hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
+  ```
 - **Type:** JavaScript Module
 
 > 💡 When editing, append `?v=1`, `?v=2`, etc. to bust cache.
 
 ---
 
-### 3️⃣ Use it in `sidebar-card` (bottomCard)
+### 4️⃣ Use it in `sidebar-card` (bottomCard)
 
 `sidebar-card` expects the card configuration under `cardOptions`.
 
@@ -101,6 +118,17 @@ bottomCard:
     art_width: 150
     art_height: 215
     hide_youtube_cast_art: true
+```
+
+Resource example (manual or HACS):
+
+```yaml
+resources:
+  - url: /local/now-playing-sidebar-card.js
+    type: module
+  # or
+  - url: /hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
+    type: module
 ```
 
 > Notes:
