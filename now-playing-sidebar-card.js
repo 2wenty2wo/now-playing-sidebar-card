@@ -186,11 +186,11 @@ class NowPlayingSidebarCard extends LitElementBase {
 
       .title .t .marquee {
         display: inline-block;
-        padding-right: 20px;
       }
 
       .title .t.marquee-enabled .marquee {
         animation: np-title-marquee 8s ease-in-out infinite;
+        padding-right: 20px;
         will-change: transform;
       }
 
