@@ -254,8 +254,11 @@ class NowPlayingSidebarCard extends LitElementBase {
       art_height: 165,
       hide_youtube_cast_art: true,
       marquee_title: false,
+      show_progress: true,
       ...config,
     };
+
+    this._ensureProgressTimer();
   }
 
   getCardSize() {
@@ -264,14 +267,13 @@ class NowPlayingSidebarCard extends LitElementBase {
 
   connectedCallback() {
     super.connectedCallback();
-    this._timer = window.setInterval(() => {
-      this._tick = Date.now();
-    }, 1000);
+    this._ensureProgressTimer();
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
     if (this._timer) window.clearInterval(this._timer);
+    this._timer = null;
   }
 
   updated() {
@@ -322,6 +324,20 @@ class NowPlayingSidebarCard extends LitElementBase {
     return { dur, pct };
   }
 
+  _ensureProgressTimer() {
+    const showProgress = this.config?.show_progress !== false;
+    if (!showProgress) {
+      if (this._timer) window.clearInterval(this._timer);
+      this._timer = null;
+      return;
+    }
+
+    if (this._timer) return;
+    this._timer = window.setInterval(() => {
+      this._tick = Date.now();
+    }, 1000);
+  }
+
   _icons(stateObj) {
     const a = stateObj?.attributes || {};
     const child = (a.active_child || "").toLowerCase();
@@ -354,8 +370,9 @@ class NowPlayingSidebarCard extends LitElementBase {
       this.config.hide_youtube_cast_art &&
       (appName.includes("youtube") || appId.includes("youtube"));
 
-    const { dur, pct } = this._computeProgress(stateObj);
-    const showBar = dur > 0;
+    const showProgress = this.config.show_progress !== false;
+    const { dur, pct } = showProgress ? this._computeProgress(stateObj) : { dur: 0, pct: 0 };
+    const showBar = showProgress && dur > 0;
 
     const title = a.media_title || "";
     const artist = a.media_artist || "";
