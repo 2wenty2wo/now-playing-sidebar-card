@@ -193,6 +193,8 @@ class NowPlayingSidebarCard extends LitElementBase {
       }
 
       .marquee-viewport {
+        width: 100%;
+        max-width: var(--np-art-w, 165px);
         overflow: hidden;
         mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
         -webkit-mask-image: linear-gradient(
@@ -206,7 +208,11 @@ class NowPlayingSidebarCard extends LitElementBase {
 
       .marquee-track {
         display: inline-flex;
+        white-space: nowrap;
         gap: var(--np-marquee-gap, 32px);
+        max-width: var(--np-marquee-max, 800px);
+        overflow: hidden;
+        text-overflow: ellipsis;
         animation: np-title-marquee var(--np-marquee-duration, 12s) linear infinite;
         will-change: transform;
       }
