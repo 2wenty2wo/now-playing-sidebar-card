@@ -118,6 +118,7 @@ bottomCard:
     art_width: 150
     art_height: 215
     hide_youtube_cast_art: true
+    show_progress: false
 ```
 
 Resource example (manual or HACS):
@@ -149,6 +150,7 @@ resources:
 | `art_height` | `165` | Artwork height |
 | `hide_youtube_cast_art` | `true` | Hides fake Cast artwork for YouTube |
 | `marquee_title` | `false` | Scrolls long titles horizontally when they overflow |
+| `show_progress` | `true` | Shows playback progress bar and live updates |
 
 Example:
 
@@ -158,6 +160,7 @@ entity: media_player.preferred_now_playing
 width: 155
 art_width: 155
 art_height: 155
+show_progress: false
 ```
 
 ---
