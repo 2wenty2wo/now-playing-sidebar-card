@@ -188,31 +188,60 @@ class NowPlayingSidebarCard extends LitElementBase {
         color: inherit;
       }
 
-      .title .t .marquee {
-        display: inline-block;
+      .title .t.marquee-enabled {
+        text-overflow: clip;
       }
 
-      .title .t.marquee-enabled .marquee {
-        animation: np-title-marquee 8s ease-in-out infinite;
-        padding-right: 20px;
+      .marquee-viewport {
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent 0, #000 12%, #000 88%, transparent 100%);
+        -webkit-mask-image: linear-gradient(
+          90deg,
+          transparent 0,
+          #000 12%,
+          #000 88%,
+          transparent 100%
+        );
+      }
+
+      .marquee-track {
+        display: inline-flex;
+        gap: var(--np-marquee-gap, 32px);
+        animation: np-title-marquee var(--np-marquee-duration, 12s) linear infinite;
         will-change: transform;
       }
 
+      .marquee-text {
+        display: inline-block;
+        white-space: nowrap;
+      }
+
       @keyframes np-title-marquee {
-        0%,
-        15% {
+        0% {
           transform: translateX(0);
         }
-        85%,
         100% {
-          transform: translateX(-30%);
+          transform: translateX(-50%);
         }
       }
 
       @media (prefers-reduced-motion: reduce) {
-        .title .t.marquee-enabled .marquee {
+        .title .t.marquee-enabled {
+          text-overflow: ellipsis;
+        }
+
+        .title .t.marquee-enabled .marquee-viewport {
+          mask-image: none;
+          -webkit-mask-image: none;
+        }
+
+        .title .t.marquee-enabled .marquee-track {
           animation: none;
           transform: none;
+        }
+
+        .title .t.marquee-enabled .marquee-text + .marquee-text {
+          display: none;
         }
       }
 
@@ -396,6 +425,7 @@ class NowPlayingSidebarCard extends LitElementBase {
     const title = a.media_title || "";
     const artist = a.media_artist || "";
     const marqueeTitle = Boolean(this.config.marquee_title);
+    const showMarquee = marqueeTitle && this._titleOverflow;
 
     const state = (stateObj.state || "").toLowerCase();
     const isPlaying = state === "playing";
@@ -458,10 +488,19 @@ class NowPlayingSidebarCard extends LitElementBase {
             @click=${tapToOpen ? this._openMoreInfo : null}
           >
             <div
-              class=${`t${marqueeTitle && this._titleOverflow ? " marquee-enabled" : ""}`}
+              class=${`t${showMarquee ? " marquee-enabled" : ""}`}
               title="${title}"
             >
-              <span class="marquee">${title}</span>
+              ${showMarquee
+                ? html`
+                    <div class="marquee-viewport">
+                      <div class="marquee-track">
+                        <span class="marquee-text">${title}</span>
+                        <span class="marquee-text" aria-hidden="true">${title}</span>
+                      </div>
+                    </div>
+                  `
+                : html`<span class="marquee-text">${title}</span>`}
             </div>
             ${artist ? html`<div class="a" title="${artist}">${artist}</div>` : html``}
           </div>
