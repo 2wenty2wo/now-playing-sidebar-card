@@ -211,6 +211,14 @@ class NowPlayingSidebarCard extends LitElementBase {
         will-change: transform;
       }
 
+      .title .t.marquee-enabled .marquee-track {
+        animation-delay: var(--np-marquee-delay, 1.5s);
+      }
+
+      .title:hover .marquee-track {
+        animation-play-state: paused;
+      }
+
       .marquee-text {
         display: inline-block;
         white-space: nowrap;
