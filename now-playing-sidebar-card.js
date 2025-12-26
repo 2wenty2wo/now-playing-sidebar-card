@@ -74,6 +74,10 @@ class NowPlayingSidebarCard extends LitElementBase {
         border-radius: 0;
       }
 
+      .clickable {
+        cursor: pointer;
+      }
+
       /* Progress BELOW artwork */
       .progressTrack {
         width: var(--np-art-w, 165px);
@@ -324,6 +328,19 @@ class NowPlayingSidebarCard extends LitElementBase {
     return { dur, pct };
   }
 
+  _openMoreInfo() {
+    const entityId = this.config?.entity;
+    if (!entityId) return;
+
+    this.dispatchEvent(
+      new CustomEvent("hass-more-info", {
+        detail: { entityId },
+        bubbles: true,
+        composed: true,
+      })
+    );
+  }
+
   _ensureProgressTimer() {
     const showProgress = this.config?.show_progress !== false;
     if (!showProgress) {
@@ -395,7 +412,9 @@ class NowPlayingSidebarCard extends LitElementBase {
         "
       >
         <div class="wrap">
-          ${hideArt || !pic ? html`` : html`<img class="art" src="${pic}" />`}
+          ${hideArt || !pic
+            ? html``
+            : html`<img class="art clickable" src="${pic}" @click=${this._openMoreInfo} />`}
 
           ${showBar
             ? html`
@@ -425,7 +444,7 @@ class NowPlayingSidebarCard extends LitElementBase {
             </ha-icon-button>
           </div>
 
-          <div class="title">
+          <div class="title clickable" @click=${this._openMoreInfo}>
             <div
               class=${`t${marqueeTitle && this._titleOverflow ? " marquee-enabled" : ""}`}
               title="${title}"
@@ -435,7 +454,7 @@ class NowPlayingSidebarCard extends LitElementBase {
             ${artist ? html`<div class="a" title="${artist}">${artist}</div>` : html``}
           </div>
 
-          <div class="icons">
+          <div class="icons clickable" @click=${this._openMoreInfo}>
             ${deviceIcon ? html`<ha-icon icon="${deviceIcon}"></ha-icon>` : html``}
             ${appIcon ? html`<ha-icon icon="${appIcon}"></ha-icon>` : html``}
           </div>
