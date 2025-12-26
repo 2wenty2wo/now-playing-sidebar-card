@@ -151,6 +151,7 @@ resources:
 | `hide_youtube_cast_art` | `true` | Hides fake Cast artwork for YouTube |
 | `marquee_title` | `false` | Scrolls long titles horizontally when they overflow |
 | `show_progress` | `true` | Shows playback progress bar and live updates |
+| `tap_to_open` | `true` | Opens the more-info popup when tapping artwork/title/icons |
 
 Example:
 
@@ -161,6 +162,7 @@ width: 155
 art_width: 155
 art_height: 155
 show_progress: false
+tap_to_open: true
 ```
 
 ---
