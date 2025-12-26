@@ -210,9 +210,6 @@ class NowPlayingSidebarCard extends LitElementBase {
         display: inline-flex;
         white-space: nowrap;
         gap: var(--np-marquee-gap, 32px);
-        max-width: var(--np-marquee-max, 800px);
-        overflow: hidden;
-        text-overflow: ellipsis;
         animation: np-title-marquee var(--np-marquee-duration, 12s) linear infinite;
         will-change: transform;
       }
@@ -228,6 +225,9 @@ class NowPlayingSidebarCard extends LitElementBase {
       .marquee-text {
         display: inline-block;
         white-space: nowrap;
+        max-width: var(--np-marquee-max, 800px);
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
 
       @keyframes np-title-marquee {
