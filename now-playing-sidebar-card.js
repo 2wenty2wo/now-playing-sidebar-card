@@ -259,6 +259,7 @@ class NowPlayingSidebarCard extends LitElementBase {
       hide_youtube_cast_art: true,
       marquee_title: false,
       show_progress: true,
+      tap_to_open: true,
       ...config,
     };
 
@@ -329,6 +330,7 @@ class NowPlayingSidebarCard extends LitElementBase {
   }
 
   _openMoreInfo() {
+    if (this.config?.tap_to_open === false) return;
     const entityId = this.config?.entity;
     if (!entityId) return;
 
@@ -402,6 +404,7 @@ class NowPlayingSidebarCard extends LitElementBase {
     const colW = Number(this.config.width || 165);
     const artW = Number(this.config.art_width || 165);
     const artH = Number(this.config.art_height || 165);
+    const tapToOpen = this.config.tap_to_open !== false;
 
     return html`
       <ha-card
@@ -414,7 +417,13 @@ class NowPlayingSidebarCard extends LitElementBase {
         <div class="wrap">
           ${hideArt || !pic
             ? html``
-            : html`<img class="art clickable" src="${pic}" @click=${this._openMoreInfo} />`}
+            : html`
+                <img
+                  class=${`art${tapToOpen ? " clickable" : ""}`}
+                  src="${pic}"
+                  @click=${tapToOpen ? this._openMoreInfo : null}
+                />
+              `}
 
           ${showBar
             ? html`
@@ -444,7 +453,10 @@ class NowPlayingSidebarCard extends LitElementBase {
             </ha-icon-button>
           </div>
 
-          <div class="title clickable" @click=${this._openMoreInfo}>
+          <div
+            class=${`title${tapToOpen ? " clickable" : ""}`}
+            @click=${tapToOpen ? this._openMoreInfo : null}
+          >
             <div
               class=${`t${marqueeTitle && this._titleOverflow ? " marquee-enabled" : ""}`}
               title="${title}"
@@ -454,7 +466,10 @@ class NowPlayingSidebarCard extends LitElementBase {
             ${artist ? html`<div class="a" title="${artist}">${artist}</div>` : html``}
           </div>
 
-          <div class="icons clickable" @click=${this._openMoreInfo}>
+          <div
+            class=${`icons${tapToOpen ? " clickable" : ""}`}
+            @click=${tapToOpen ? this._openMoreInfo : null}
+          >
             ${deviceIcon ? html`<ha-icon icon="${deviceIcon}"></ha-icon>` : html``}
             ${appIcon ? html`<ha-icon icon="${appIcon}"></ha-icon>` : html``}
           </div>
