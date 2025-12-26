@@ -20,6 +20,7 @@ class NowPlayingSidebarCard extends LitElementBase {
       hass: {},
       config: {},
       _tick: { type: Number },
+      _titleOverflow: { type: Boolean },
     };
   }
 
@@ -183,6 +184,34 @@ class NowPlayingSidebarCard extends LitElementBase {
         color: inherit;
       }
 
+      .title .t .marquee {
+        display: inline-block;
+        padding-right: 20px;
+      }
+
+      .title .t.marquee-enabled .marquee {
+        animation: np-title-marquee 8s ease-in-out infinite;
+        will-change: transform;
+      }
+
+      @keyframes np-title-marquee {
+        0%,
+        15% {
+          transform: translateX(0);
+        }
+        85%,
+        100% {
+          transform: translateX(-30%);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .title .t.marquee-enabled .marquee {
+          animation: none;
+          transform: none;
+        }
+      }
+
       .title .a {
         margin-top: 3px;
         font-size: 12px;
@@ -224,6 +253,7 @@ class NowPlayingSidebarCard extends LitElementBase {
       art_width: 165,
       art_height: 165,
       hide_youtube_cast_art: true,
+      marquee_title: false,
       ...config,
     };
   }
@@ -242,6 +272,16 @@ class NowPlayingSidebarCard extends LitElementBase {
   disconnectedCallback() {
     super.disconnectedCallback();
     if (this._timer) window.clearInterval(this._timer);
+  }
+
+  updated() {
+    const titleEl = this.shadowRoot?.querySelector(".title .t");
+    if (!titleEl) return;
+
+    const hasOverflow = titleEl.scrollWidth > titleEl.clientWidth;
+    if (this._titleOverflow !== hasOverflow) {
+      this._titleOverflow = hasOverflow;
+    }
   }
 
   _stateObj() {
@@ -319,6 +359,7 @@ class NowPlayingSidebarCard extends LitElementBase {
 
     const title = a.media_title || "";
     const artist = a.media_artist || "";
+    const marqueeTitle = Boolean(this.config.marquee_title);
 
     const state = (stateObj.state || "").toLowerCase();
     const isPlaying = state === "playing";
@@ -368,7 +409,12 @@ class NowPlayingSidebarCard extends LitElementBase {
           </div>
 
           <div class="title">
-            <div class="t" title="${title}">${title}</div>
+            <div
+              class=${`t${marqueeTitle && this._titleOverflow ? " marquee-enabled" : ""}`}
+              title="${title}"
+            >
+              <span class="marquee">${title}</span>
+            </div>
             ${artist ? html`<div class="a" title="${artist}">${artist}</div>` : html``}
           </div>
 
