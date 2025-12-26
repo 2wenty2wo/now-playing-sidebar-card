@@ -21,7 +21,14 @@ class NowPlayingSidebarCard extends LitElementBase {
       config: {},
       _tick: { type: Number },
       _titleOverflow: { type: Boolean },
+      _marqueeWidth: { type: Number },
     };
+  }
+
+  constructor() {
+    super();
+    this._lastTitle = "";
+    this._marqueeWidth = 0;
   }
 
   static get styles() {
@@ -210,6 +217,7 @@ class NowPlayingSidebarCard extends LitElementBase {
         display: inline-flex;
         white-space: nowrap;
         gap: var(--np-marquee-gap, 32px);
+        --np-marquee-distance: 0px;
         animation: np-title-marquee var(--np-marquee-duration, 12s) linear infinite;
         will-change: transform;
       }
@@ -235,7 +243,7 @@ class NowPlayingSidebarCard extends LitElementBase {
           transform: translateX(0);
         }
         100% {
-          transform: translateX(-50%);
+          transform: translateX(calc(-1 * var(--np-marquee-distance)));
         }
       }
 
@@ -328,10 +336,39 @@ class NowPlayingSidebarCard extends LitElementBase {
     const titleEl = this.shadowRoot?.querySelector(".title .t");
     if (!titleEl) return;
 
-    const hasOverflow = titleEl.scrollWidth > titleEl.clientWidth;
-    if (this._titleOverflow !== hasOverflow) {
-      this._titleOverflow = hasOverflow;
+    const title = this._stateObj()?.attributes?.media_title || "";
+    const marqueeEnabled = Boolean(this.config?.marquee_title);
+    const titleChanged = title !== this._lastTitle;
+
+    if (titleChanged) {
+      this._lastTitle = title;
+      const hasOverflow = titleEl.scrollWidth > titleEl.clientWidth;
+      if (this._titleOverflow !== hasOverflow) {
+        this._titleOverflow = hasOverflow;
+      }
+      if (!marqueeEnabled || !hasOverflow) {
+        this._marqueeWidth = 0;
+      }
     }
+
+    const shouldMeasure =
+      marqueeEnabled && this._titleOverflow && (titleChanged || !this._marqueeWidth);
+    if (!shouldMeasure) return;
+
+    const trackEl = this.shadowRoot?.querySelector(".marquee-track");
+    const textEl = trackEl?.querySelector(".marquee-text");
+    if (!trackEl || !textEl) return;
+
+    const width = textEl.getBoundingClientRect().width;
+    const style = getComputedStyle(trackEl);
+    const gapValue = parseFloat(style.columnGap || style.gap || "0") || 0;
+    const distance = width + gapValue;
+
+    if (width && this._marqueeWidth !== width) {
+      this._marqueeWidth = width;
+    }
+
+    trackEl.style.setProperty("--np-marquee-distance", `${distance}px`);
   }
 
   _stateObj() {
