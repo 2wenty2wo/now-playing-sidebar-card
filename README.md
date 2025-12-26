@@ -148,6 +148,7 @@ resources:
 | `art_width` | `165` | Artwork width |
 | `art_height` | `165` | Artwork height |
 | `hide_youtube_cast_art` | `true` | Hides fake Cast artwork for YouTube |
+| `marquee_title` | `false` | Scrolls long titles horizontally when they overflow |
 
 Example:
 
