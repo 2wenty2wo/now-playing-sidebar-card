@@ -5,6 +5,8 @@ A **compact, theme-independent “Now Playing” card** designed specifically fo
 
 This card is implemented as a **single custom Lovelace card** (no `conditional`, no `vertical-stack`) so it works reliably inside the sidebar without layout bugs. It is intended **exclusively** for `sidebar-card` **bottomCard** integration.
 
+![screenshot](screenshot.webp)
+
 ---
 
 ## ✨ Features
