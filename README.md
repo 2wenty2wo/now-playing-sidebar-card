@@ -2,7 +2,6 @@
 
 [![HACS](https://img.shields.io/badge/HACS-Custom-orange.svg)](https://github.com/custom-components/hacs)
 [![GitHub Release](https://img.shields.io/github/v/release/2wenty2wo/now-playing-sidebar-card?color=blue)](https://github.com/2wenty2wo/now-playing-sidebar-card/releases)
-[![GitHub Downloads](https://img.shields.io/github/downloads/2wenty2wo/now-playing-sidebar-card/total)](https://github.com/2wenty2wo/now-playing-sidebar-card/releases)
 
 A **compact, theme-independent “Now Playing” card** designed specifically for use inside the  
 [`sidebar-card`](https://github.com/DBuit/sidebar-card) **bottomCard** area in Home Assistant.
