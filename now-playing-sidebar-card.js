@@ -21,6 +21,7 @@ class NowPlayingSidebarCard extends LitElementBase {
       config: {},
       _tick: { type: Number },
       _titleOverflow: { type: Boolean },
+      _artIsPortrait: { type: Boolean },
     };
   }
 
@@ -72,6 +73,10 @@ class NowPlayingSidebarCard extends LitElementBase {
         display: block;
         object-fit: contain;
         border-radius: 0;
+      }
+
+      .art.art--portrait {
+        height: auto;
       }
 
       .clickable {
@@ -355,6 +360,16 @@ class NowPlayingSidebarCard extends LitElementBase {
     }, 1000);
   }
 
+  _handleArtLoad(event) {
+    const { naturalWidth, naturalHeight } = event.target || {};
+    if (!naturalWidth || !naturalHeight) {
+      this._artIsPortrait = false;
+      return;
+    }
+
+    this._artIsPortrait = naturalHeight > naturalWidth;
+  }
+
   _icons(stateObj) {
     const a = stateObj?.attributes || {};
     const child = (a.active_child || "").toLowerCase();
@@ -402,6 +417,7 @@ class NowPlayingSidebarCard extends LitElementBase {
     const colW = Number(this.config.width || 165);
     const artW = Number(this.config.art_width || 165);
     const artH = Number(this.config.art_height || 165);
+    const artClass = `art clickable${this._artIsPortrait ? " art--portrait" : ""}`;
 
     return html`
       <ha-card
@@ -414,7 +430,12 @@ class NowPlayingSidebarCard extends LitElementBase {
         <div class="wrap">
           ${hideArt || !pic
             ? html``
-            : html`<img class="art clickable" src="${pic}" @click=${this._openMoreInfo} />`}
+            : html`<img
+                class=${artClass}
+                src="${pic}"
+                @click=${this._openMoreInfo}
+                @load=${this._handleArtLoad}
+              />`}
 
           ${showBar
             ? html`
