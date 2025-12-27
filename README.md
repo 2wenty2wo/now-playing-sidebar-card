@@ -118,8 +118,8 @@ This card solves that by:
 ## 🧩 Known Limitations
 
 - Icon packs like `si:` and `phu:` must be installed:
-  `si:` (Simple Icons): <https://github.com/vigonotion/hass-simpleicons>
-  `phu:` (Phosphor): <https://github.com/elax46/custom-brand-icons>
+  - `si:` (Simple Icons): https://github.com/vigonotion/hass-simpleicons
+  - `phu:` (Phosphor): https://github.com/elax46/custom-brand-icons
 - Designed for sidebars, not full-width dashboards
 
 ---
