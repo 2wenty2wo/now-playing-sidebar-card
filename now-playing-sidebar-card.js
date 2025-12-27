@@ -29,6 +29,7 @@ class NowPlayingSidebarCard extends LitElementBase {
     super();
     this._lastTitle = "";
     this._marqueeWidth = 0;
+    this._lastTitleWidth = 0;
   }
 
   static get styles() {
@@ -339,9 +340,11 @@ class NowPlayingSidebarCard extends LitElementBase {
     const title = this._stateObj()?.attributes?.media_title || "";
     const marqueeEnabled = Boolean(this.config?.marquee_title);
     const titleChanged = title !== this._lastTitle;
+    const layoutChanged = titleEl.clientWidth !== this._lastTitleWidth;
 
-    if (titleChanged) {
+    if (titleChanged || layoutChanged) {
       this._lastTitle = title;
+      this._lastTitleWidth = titleEl.clientWidth;
       const hasOverflow = titleEl.scrollWidth > titleEl.clientWidth;
       if (this._titleOverflow !== hasOverflow) {
         this._titleOverflow = hasOverflow;
@@ -352,7 +355,9 @@ class NowPlayingSidebarCard extends LitElementBase {
     }
 
     const shouldMeasure =
-      marqueeEnabled && this._titleOverflow && (titleChanged || !this._marqueeWidth);
+      marqueeEnabled &&
+      this._titleOverflow &&
+      (titleChanged || layoutChanged || !this._marqueeWidth);
     if (!shouldMeasure) return;
 
     const trackEl = this.shadowRoot?.querySelector(".marquee-track");
