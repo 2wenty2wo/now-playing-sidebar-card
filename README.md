@@ -30,17 +30,17 @@ This card is implemented as a **single custom Lovelace card** (no `conditional`,
 
 ## 📦 Installation
 
-HACS Installation
-Go to the hacs store and use the repo url https://github.com/2wenty2wo/now-playing-sidebar-card and add this as a custom repository under settings.
+### HACS Installation
+1. Open the HACS store in Home Assistant.
+2. Add the repository URL `https://github.com/2wenty2wo/now-playing-sidebar-card` as a custom repository under HACS settings.
+3. Install the card from the HACS store.
 
-In Home Assistant's global settings, add the resource:
-
-Go to Settings → Dashboards → Three-dots menu → Resources in the top right
-Click + Add Resource button in the bottom right
-Enter in the following:
-URL: /hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
-Resource Type: Dashboard 
-Click Create
+### Add the Resource
+1. Go to Settings → Dashboards → Three-dots menu → Resources.
+2. Click **+ Add Resource**.
+3. Set the URL to `/hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js`.
+4. Set the Resource Type to **Dashboard**.
+5. Click **Create**.
 
 
 ---
