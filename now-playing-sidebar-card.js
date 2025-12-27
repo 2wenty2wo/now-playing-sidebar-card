@@ -388,6 +388,8 @@ class NowPlayingSidebarCard extends LitElementBase {
 
     let appIcon = "mdi:play-box";
     if (appId.includes("com.plexapp.plex") || appName.includes("plex")) appIcon = "si:plex";
+    else if (appId.includes("com.netflix.netflix") || appName.includes("netflix"))
+      appIcon = "mdi:netflix";
     else if (appName.includes("youtube")) appIcon = "si:youtube";
     else if (appName.includes("spotify")) appIcon = "si:spotify";
     else if (appName.includes("iplaytv") || appName.includes("iplayer")) appIcon = "mdi:television";
