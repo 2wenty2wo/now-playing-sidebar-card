@@ -151,6 +151,7 @@ resources:
 | `hide_youtube_cast_art` | `true` | Hides fake Cast artwork for YouTube |
 | `marquee_title` | `false` | Scrolls long titles horizontally when they overflow |
 | `show_progress` | `true` | Shows playback progress bar and live updates |
+| `show_controls` | `true` | Shows playback controls (previous/play/pause/next) |
 
 Example:
 
@@ -161,6 +162,7 @@ width: 155
 art_width: 155
 art_height: 155
 show_progress: false
+show_controls: false
 ```
 
 ---

@@ -268,6 +268,7 @@ class NowPlayingSidebarCard extends LitElementBase {
       hide_youtube_cast_art: true,
       marquee_title: false,
       show_progress: true,
+      show_controls: true,
       ...config,
     };
 
@@ -409,6 +410,7 @@ class NowPlayingSidebarCard extends LitElementBase {
     const showProgress = this.config.show_progress !== false;
     const { dur, pct } = showProgress ? this._computeProgress(stateObj) : { dur: 0, pct: 0 };
     const showBar = showProgress && dur > 0;
+    const showControls = this.config.show_controls !== false;
 
     const title = a.media_title || "";
     const artist = a.media_artist || "";
@@ -449,25 +451,32 @@ class NowPlayingSidebarCard extends LitElementBase {
               `
             : html``}
 
-          <div class="controls">
-            <ha-icon-button
-              .label=${"Previous"}
-              @click=${() => this._call("media_previous_track")}
-            >
-              <ha-icon class="prev" icon="mdi:skip-previous"></ha-icon>
-            </ha-icon-button>
+          ${showControls
+            ? html`
+                <div class="controls">
+                  <ha-icon-button
+                    .label=${"Previous"}
+                    @click=${() => this._call("media_previous_track")}
+                  >
+                    <ha-icon class="prev" icon="mdi:skip-previous"></ha-icon>
+                  </ha-icon-button>
 
-            <ha-icon-button
-              .label=${isPlaying ? "Pause" : "Play"}
-              @click=${() => this._call("media_play_pause")}
-            >
-              <ha-icon class="play" .icon=${playIcon}></ha-icon>
-            </ha-icon-button>
+                  <ha-icon-button
+                    .label=${isPlaying ? "Pause" : "Play"}
+                    @click=${() => this._call("media_play_pause")}
+                  >
+                    <ha-icon class="play" .icon=${playIcon}></ha-icon>
+                  </ha-icon-button>
 
-            <ha-icon-button .label=${"Next"} @click=${() => this._call("media_next_track")}>
-              <ha-icon class="next" icon="mdi:skip-next"></ha-icon>
-            </ha-icon-button>
-          </div>
+                  <ha-icon-button
+                    .label=${"Next"}
+                    @click=${() => this._call("media_next_track")}
+                  >
+                    <ha-icon class="next" icon="mdi:skip-next"></ha-icon>
+                  </ha-icon-button>
+                </div>
+              `
+            : html``}
 
           <div class="title clickable" @click=${this._openMoreInfo}>
             <div
