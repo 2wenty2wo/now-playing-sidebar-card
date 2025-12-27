@@ -3,7 +3,7 @@
 A **compact, theme-independent “Now Playing” card** designed specifically for use inside the  
 [`sidebar-card`](https://github.com/DBuit/sidebar-card) **bottomCard** area in Home Assistant.
 
-This card is implemented as a **single custom Lovelace card** (no `conditional`, no `vertical-stack`) so it works reliably inside the sidebar without layout bugs.
+This card is implemented as a **single custom Lovelace card** (no `conditional`, no `vertical-stack`) so it works reliably inside the sidebar without layout bugs. It is intended **exclusively** for `sidebar-card` **bottomCard** integration.
 
 ---
 
@@ -70,6 +70,8 @@ Click Create
 
 ## ⚙️ Configuration Options
 
+Options below apply to the `sidebar-card` `bottomCard` config.
+
 | Option | Default | Description |
 |------|--------|------------|
 | `entity` | **required** | Media player entity |
@@ -82,16 +84,29 @@ Click Create
 | `show_progress` | `true` | Shows playback progress bar and live updates |
 | `show_controls` | `true` | Shows playback controls (previous/play/pause/next) |
 
-Example:
+Example (sidebar `bottomCard`):
 
 ```yaml
-type: custom:now-playing-sidebar-card
-entity: media_player.preferred_now_playing
-width: 155
-art_width: 155
-art_height: 155
-show_progress: false
-show_controls: false
+sidebar:
+  bottomCard:
+    type: custom:now-playing-sidebar-card
+    cardStyle: |
+      :host {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+      }
+    cardOptions:
+      entity: media_player.preferred_now_playing
+      width: 150
+      height: 215
+      radius: 14
+      hide_youtube_cast_art: true
+      marquee_title: true
+      show_progress: true
+      show_controls: false
+      hide_when_no_art: true
 ```
 
 ---
