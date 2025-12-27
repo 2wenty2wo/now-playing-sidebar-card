@@ -13,41 +13,18 @@ This card is implemented as a **single custom Lovelace card** (no `conditional`,
   Works inside `sidebar-card` where conditional / stack cards break.
 
 - 🎵 **Now Playing display**
-  - Artwork (square or poster, `object-fit: contain`)
+  - Artwork
   - Track title + artist
-  - Playback progress bar (below artwork)
+  - Playback progress bar
 
 - ⏯️ **Playback controls**
   - Previous / Play–Pause / Next
-  - **No ripple, no circles, no focus rings**
-  - Optically centered icons (no “off to one side” look)
-
-- 🎨 **Always white foreground**
-  - Ignores HA light/dark theme text color changes
-  - Perfect for dark sidebars in light mode
-  - Scoped to this card only (no global theme impact)
-
-- 📱 **Compact + sidebar-friendly**
-  - Tuned spacing and typography
-  - Designed for narrow columns
-  - No wasted padding or backgrounds
 
 - 🚫 **Smart hiding**
   - Card renders nothing when the media player is:
     - `idle`
     - `off`
     - `unavailable`
-
----
-
-## 📸 Design Goal
-
-Visually matches an **Apple TV / Spotify style Now Playing panel**, but:
-
-- Smaller
-- Cleaner
-- Sidebar-safe
-- No Material Design ripples or hover junk
 
 ---
 
@@ -61,7 +38,7 @@ In Home Assistant's global settings, add the resource:
 Go to Settings → Dashboards → Three-dots menu → Resources in the top right
 Click + Add Resource button in the bottom right
 Enter in the following:
-URL: /hacsfiles/sidebar-card/sidebar-card.js
+URL: /hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
 Resource Type: Dashboard 
 Click Create
 
@@ -132,32 +109,9 @@ This card solves that by:
 
 ---
 
-## 🧠 Implementation Notes
-
-- Built on Home Assistant’s internal `LitElement`
-- Uses HA services directly (`media_player.*`)
-- CSS variables are overridden **only inside this card**
-- Ripple / state-layer behavior is forcibly disabled for clean controls
-- Optical centering fixes for MDI transport icons
-
----
-
-## 🛠️ Development / Editing
-
-This repo is intentionally friendly for iterative editing with **ChatGPT Codex**.
-
-Recommended workflow:
-1. Edit JS
-2. Increment resource URL (`?v=8`)
-3. Hard refresh dashboard
-4. Iterate
-
----
-
 ## 🧩 Known Limitations
 
 - Icon packs like `si:` and `phu:` must be installed if used
-- Artwork aspect ratio depends on source metadata
 - Designed for sidebars, not full-width dashboards
 
 ---
