@@ -53,91 +53,17 @@ Visually matches an **Apple TV / Spotify style Now Playing panel**, but:
 
 ## 📦 Installation
 
-### 1️⃣ Copy the JS file
+HACS Installation
+Go to the hacs store and use the repo url https://github.com/2wenty2wo/now-playing-sidebar-card and add this as a custom repository under settings.
 
-Place `now-playing-sidebar-card.js` in:
+In Home Assistant's global settings, add the resource:
 
-```
-/config/www/now-playing-sidebar-card.js
-```
-
----
-
-### 2️⃣ Install via HACS
-
-In **HACS → Frontend**, add this repository as a **custom repository** (category: **Lovelace**) if it isn’t in the default store.  
-Then install **Now Playing Sidebar Card**.
-
-After installing, confirm HACS added the resource as a JavaScript module:
-
-```
-/hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
-```
-
----
-
-### 3️⃣ Add as a Lovelace resource
-
-In Home Assistant:
-
-**Settings → Dashboards → Resources → Add Resource**
-
-- **URL:**  
-  ```
-  /local/now-playing-sidebar-card.js
-  ```
-  or (HACS)
-  ```
-  /hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
-  ```
-- **Type:** JavaScript Module
-
-> 💡 When editing, append `?v=1`, `?v=2`, etc. to bust cache.
-
----
-
-### 4️⃣ Use it in `sidebar-card` (bottomCard)
-
-`sidebar-card` expects the card configuration under `cardOptions`.
-
-Example:
-
-```yaml
-bottomCard:
-  type: custom:now-playing-sidebar-card
-  cardStyle: |
-    :host {
-      width: 100%;
-      max-width: 100%;
-      box-sizing: border-box;
-      overflow: hidden;
-    }
-  cardOptions:
-    entity: media_player.preferred_now_playing
-    width: 150
-    art_width: 150
-    art_height: 215
-    hide_youtube_cast_art: true
-    hide_when_no_art: false
-    show_progress: false
-```
-
-Resource example (manual or HACS):
-
-```yaml
-resources:
-  - url: /local/now-playing-sidebar-card.js
-    type: module
-  # or
-  - url: /hacsfiles/now-playing-sidebar-card/now-playing-sidebar-card.js
-    type: module
-```
-
-> Notes:
-> - `width` controls the card’s internal column width.
-> - `art_width` / `art_height` control the artwork box.
-> - This card renders nothing when the player is `idle`, `off`, or `unavailable`, so you don’t need a `conditional` wrapper.
-> - When `hide_when_no_art` is enabled, the card hides if artwork is missing or suppressed (e.g., YouTube Cast art).
+Go to Settings → Dashboards → Three-dots menu → Resources in the top right
+Click + Add Resource button in the bottom right
+Enter in the following:
+URL: /hacsfiles/sidebar-card/sidebar-card.js
+Resource Type: Dashboard 
+Click Create
 
 
 ---
