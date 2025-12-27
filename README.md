@@ -118,6 +118,7 @@ bottomCard:
     art_width: 150
     art_height: 215
     hide_youtube_cast_art: true
+    hide_when_no_art: false
     show_progress: false
 ```
 
@@ -136,6 +137,7 @@ resources:
 > - `width` controls the card’s internal column width.
 > - `art_width` / `art_height` control the artwork box.
 > - This card renders nothing when the player is `idle`, `off`, or `unavailable`, so you don’t need a `conditional` wrapper.
+> - When `hide_when_no_art` is enabled, the card hides if artwork is missing or suppressed (e.g., YouTube Cast art).
 
 
 ---
@@ -149,6 +151,7 @@ resources:
 | `art_width` | `165` | Artwork width |
 | `art_height` | `165` | Artwork height |
 | `hide_youtube_cast_art` | `true` | Hides fake Cast artwork for YouTube |
+| `hide_when_no_art` | `false` | Hides the card when artwork is missing or suppressed |
 | `marquee_title` | `false` | Scrolls long titles horizontally when they overflow |
 | `show_progress` | `true` | Shows playback progress bar and live updates |
 | `show_controls` | `true` | Shows playback controls (previous/play/pause/next) |

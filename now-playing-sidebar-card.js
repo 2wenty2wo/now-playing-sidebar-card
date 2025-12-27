@@ -266,6 +266,7 @@ class NowPlayingSidebarCard extends LitElementBase {
       art_width: 165,
       art_height: 165,
       hide_youtube_cast_art: true,
+      hide_when_no_art: false,
       marquee_title: false,
       show_progress: true,
       show_controls: true,
@@ -406,6 +407,8 @@ class NowPlayingSidebarCard extends LitElementBase {
     const hideArt =
       this.config.hide_youtube_cast_art &&
       (appName.includes("youtube") || appId.includes("youtube"));
+    const noArt = !pic || hideArt;
+    if (this.config.hide_when_no_art && noArt) return html``;
 
     const showProgress = this.config.show_progress !== false;
     const { dur, pct } = showProgress ? this._computeProgress(stateObj) : { dur: 0, pct: 0 };
@@ -434,7 +437,7 @@ class NowPlayingSidebarCard extends LitElementBase {
         "
       >
         <div class="wrap">
-          ${hideArt || !pic
+          ${noArt
             ? html``
             : html`<img
                 class=${artClass}
