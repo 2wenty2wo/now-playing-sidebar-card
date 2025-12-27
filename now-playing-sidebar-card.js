@@ -77,6 +77,10 @@ class NowPlayingSidebarCard extends LitElementBase {
 
       .art.art--portrait {
         height: auto;
+        max-height: none;
+        width: var(--np-art-w, 165px);
+        max-width: 70vw;
+        object-fit: cover;
       }
 
       .clickable {
