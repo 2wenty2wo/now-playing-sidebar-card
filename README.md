@@ -7,8 +7,6 @@ This card is implemented as a **single custom Lovelace card** (no `conditional`,
 
 ![screenshot](screenshot.webp)
 
----
-
 ## ✨ Features
 
 - ✅ **Single-card implementation**  
