@@ -117,7 +117,7 @@ This card solves that by:
 
 ## 🧩 Known Limitations
 
-- Icon packs like `si:` and `phu:` must be installed if used
+- Icon packs like `si:` and `phu:` must be installed if used (`si:` (Simple Icons) install: <https://github.com/vigonotion/hass-simpleicons#installation>, `phu:` (Phosphor) install: <https://github.com/elax46/custom-brand-icons#installation-methods>)
 - Designed for sidebars, not full-width dashboards
 
 ---
