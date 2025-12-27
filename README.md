@@ -20,6 +20,9 @@ This card is implemented as a **single custom Lovelace card** (no `conditional`,
   - Track title + artist
   - Playback progress bar
 
+- 🎬 **Service icons included**
+  - Netflix, Plex, Apple TV, and Google Hub
+
 - ⏯️ **Playback controls**
   - Previous / Play–Pause / Next
 
