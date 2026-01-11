@@ -126,5 +126,4 @@ This card solves that by:
 
 ## 📄 License
 
-MIT — do whatever you want with it.  
-If you improve it, future you will appreciate a commit message.
+MIT License — Copyright (c) 2025 2wenty2wo.
